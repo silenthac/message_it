@@ -1,0 +1,76 @@
+
+<% layout('layout/boilerplate') %>
+<div class="idx-img alposthead" >
+ 
+    <div >
+  <h1 class="headtext" id="headtext">All Posts</h1>
+</div>
+
+</div>
+<div class="stext">
+  <i>Search Posts</i>
+  </div>
+  <div class="sbody">
+<div class="searchpostcon">
+<input type="text" id="searchpost" class="searchpost" placeholder="" onkeyup="sendPost(this)">
+<i>
+  <img src="https://cdn-icons-png.flaticon.com/512/482/482631.png" alt="">
+</i>
+
+<div class="searchpostscon">
+  <section id="searchposts" class="searchposts"></section>
+  </div>
+  
+</div>
+</div>
+
+
+
+<div class="news">
+<div class="newp">
+    <a href="/posts/new">
+      <img src="https://cdn-icons-png.flaticon.com/512/3658/3658773.png" width="40px" alt="">
+    </a>
+</div>
+</div>
+<% for(let post of posts) { %>
+
+  <% for(let user of users) {%> 
+    <% if(post.author._id.equals(user._id)) {%> 
+ 
+    <div class="container-index ">
+   
+  <div class="index_cards ">
+    <div class="index-card-container">
+      <div class="idxprofile">
+        <%if(user.image.length)  {%> 
+          <img src="<%=user.image[0].url%>" class="index-card-profile"  alt="...">
+          <%} else {%> 
+             <img src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" class="index-card-profile"  alt="">
+             <% } %> 
+       
+      </div>
+      <div class="col-md-8">
+        <div class="idx-card-body">
+          <h5 class="card-title mt-2"><a href="/profile/<%=user._id%>"><%=user.username%></a></h5>
+          <h3 class="card-text"> <%=post.title  %> </h3>
+          
+          
+        </div>
+        <%if(post.media[0]){%>
+          <img src="<%=post.media[0].url%>" class="idx-card-media" alt=".."  >
+          <a href="/posts/<%=post._id %>" class="btn btn-primary idx-card-button">View post</a>
+          <% }else{%> 
+          <a href="/posts/<%=post._id %>" class="btn btn-primary m-1">View post</a>
+          <% } %> 
+      </div>
+    </div>
+  </div>
+
+</div>
+<% } %> 
+<% } %> 
+ 
+    <% } %> 
+
+

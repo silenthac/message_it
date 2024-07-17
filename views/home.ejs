@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Msg It - Home Page</title>
+    <link rel="stylesheet" href="stylesheets/app.css">
+    <link rel="stylesheet" href="stylesheets/home.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@800&family=Libre+Franklin:ital@1&family=Montserrat:wght@600&family=Nanum+Gothic:wght@800&family=Open+Sans&family=Roboto:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+
+<body>
+
+    <div class="front-image">
+
+        <div class="home-nav" id="navbar">
+           
+                <a href="/posts">Posts</a>
+                <%if(currentUser)  {%> 
+                <a href="/profile/<%=currentUser._id%>">Account</a>
+                <% } else{%>
+                    <a href="/login">Login</a>
+                    <% } %>  
+                <a href="https://sharma-k-portfolio.netlify.app">Contact Me</a>
+          
+        </div>
+        <div class="front-text">
+
+            <span> Welcome to<span>
+                    <p class="front-msgit" >Msg It</p>
+                    <div class="hm-desc">
+                        Fastest way to connect with your friends
+                    </div>
+
+                    <!-- <a href="/login" class="getb">Get Started</a> -->
+        </div>
+       
+        
+        
+    </div>
+
+    <div class="abmsg">
+
+        <div class="con1">
+
+            <h2 data-aos="fade-in" data-aos-delay="100" data-aos-once="true" style="color: teal;">Create</h2>
+
+        </div>
+        <div class="con2">
+            <h2 data-aos="fade-in" data-aos-delay="400" data-aos-once="true" style="color: teal;">Comment</h2>
+        </div>
+        <div class="con3">
+            <h2 data-aos="fade-in" data-aos-delay="700" data-aos-once="true" style="color: teal;">Connect</h2>
+        </div>
+
+    </div>
+
+    <div class="home-posts mb-4">
+        <div class="hpost-img" data-aos="fade-in" data-aos-duration="1000" data-aos-once="true"></div>
+        <div class="hpost" data-aos="fade-in" data-aos-delay="300" data-aos-duration="1000" data-aos-once="true" >
+            <div class="text">
+                Your thoughts would make the world !!
+
+            </div>
+            <div class="more">
+                Share your memories or thoughts with everyone
+            </div>
+        </div>
+    </div>
+
+    <div class="reg mt-4">
+        <div class="regcon" data-aos="fade-right" data-aos-once="true">
+            Not a member yet?
+        </div>
+        <div class="regbut">
+        <form action="/register">
+
+            <button data-aos="fade-right" data-aos-delay="400" data-aos-once="true"> Register Now</button>
+        </form>
+    </div>
+    </div>
+
+    <footer class="hfooter">
+     
+        <div class="fcont">
+       <div class="ftitle">
+        <h1>Msg It</h1>
+        <h5 >Creater: Keshav Sharma</h5>
+        <div class="follow">
+          <h3>Follow me</h3>
+          
+            <img class="fimg" src="https://img.icons8.com/ios/48/000000/instagram-new--v1.png" width="20px" />
+          <img class="fimg" src="https://cdn-icons-png.flaticon.com/512/2111/2111425.png" width="20px" alt="">
+          <img class="fimg" src="https://cdn-icons-png.flaticon.com/512/665/665212.png" width="20px" alt="">
+        </div>
+       </div>
+
+        <div class="account">
+            <h1>Account</h1>
+            <ul>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+                <a href="/posts">Posts</a>
+            </ul>
+        </div>
+        <div class="cprgt">
+            <h1> &copy Copyright 2022</h1>
+        <div class="policy">
+            
+                <li>Cookie Policy</li>
+                <li>Terms & Conditions</li>
+                <li>Privacy Policy</li>
+        
+        </div>
+    </div>
+       
+    </div>
+  
+    </footer>
+
+   <script src="/javascripts/navbar.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+</body>
+
+</html>

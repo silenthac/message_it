@@ -1,0 +1,96 @@
+<nav class="navbar navbar-expand-lg sticky-top navbar-light navbar-custom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Msg It</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav  mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/posts">Posts</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="/posts/new">Create</a>
+             </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="/me">My Profile</a>
+              </li> -->
+              
+          </ul>
+          <div class="mx-auto order-0">
+          <!-- <form class="d-flex" role="search"> -->
+            <input class="form-control me-2" id="search-box" onkeyup="sendData(this)" type="text" placeholder="Find People" aria-label="Search" >
+            <!-- <button class="btn btn-primary bsearch" type="submit">Search</button> -->
+          <!-- </form> -->
+         
+          <div class="search">
+            <section id="searchResults" class="searchResults">
+          
+            </section>
+          </div>
+        </div>
+       
+          <div class="navbar-nav ms-auto">
+            <% if(!currentUser) {%>
+            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/register">Register</a>
+            <% }else {%> 
+           
+              <a class="nav-link" class="dpicon" href="/profile/<%=currentUser._id%>">
+                <% if(!currentUser.image.length) {%>
+                <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" width="30px" alt=".."> 
+                <% }else {%> 
+                  <img src="<%= currentUser.image[0].url %>" class="rounded-circle" width="40px" height="40px" alt="">
+                  <% } %> 
+              </a>
+           
+            <a class="nav-link" href="/logout">Logout</a>
+           <% } %> 
+        </div>
+        </div>
+        
+      </div>
+      
+  </nav>
+ 
+
+  <script>
+    function sendData(e){
+      const searchResults = document.getElementById('searchResults');
+      let match = e.value.match(/^[a-zA-Z]*/);
+      let match2 = e.value.match(/\s*/);
+
+      if(match2[0]===e.value){
+        searchResults.innerHTML = '';
+        return;
+      }
+      if(match[0]===e.value){
+      fetch('search',{
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({payload: e.value})
+      }).then(res => res.json()).then(data =>{
+        let payload = data.payload;
+        searchResults.innerHTML = '';
+
+        if(payload.length <1 ){
+          searchResults.innerHTML = '<p>Sorry Nothing Found </p>';
+          return;
+        }
+        payload.forEach((item, index) =>{
+
+          if(index > 0 ) searchResults.innerHTML += '<hr>';
+          searchResults.innerHTML += `<a href='profile/${item._id}'>${item.username}</a>`;
+        });
+        
+    
+        // console.log(payload);
+      });
+    }
+    }
+
+
+  </script>

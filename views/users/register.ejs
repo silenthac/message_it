@@ -1,0 +1,50 @@
+<%- layout('layout/boilerplate')  %>
+
+<div class="register-body">
+
+
+<form action="/register" method="post" enctype="multipart/form-data">
+<div class="register-container">
+    <h5 class="m-3">Register</h5>
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+        <div class="valid-feedback">
+            Looks Good!
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+        <div class="valid-feedback">
+            Looks Good!
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+        <div class="valid-feedback">
+            Looks Good!
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Write Something about yourself </label>
+        <input type="text" class="form-control" id="description" name="description" >
+        <div class="valid-feedback">
+            Looks Good!
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="image" class="form-label">Add a profile photo</label>
+        <input class="form-control" type="file" id="image" name="image">
+        <div class="valid-feedback">
+            Looks Good!
+        </div>
+    </div>
+    <button class="regb">Register</button>
+    <p>Already have an account?
+        <a href="/login">Login</a>
+    </p>
+</div>
+</form>
+</div>

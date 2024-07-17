@@ -1,0 +1,182 @@
+<%- layout('layout/boilerplate') %>
+
+<div class="show-body">
+ <div class="container-show" >
+   <!-- <a class="goback" href="/posts">
+      <img src="https://cdn-icons-png.flaticon.com/512/93/93634.png" width="70px" alt="go back!">
+    </a> -->
+<div class="card show-card mt-3">
+   <div class="d-flex flex-columns m-3">
+      <%if(user.image.length)  {%> 
+      <img src="<%=user.image[0].url%>" class="rounded-circle" width="60px" height="50px" alt="...">
+      <%} else {%> 
+         <img src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" class="rounded-circle" width="60px" height="50px" alt="">
+         <% } %> 
+      <div class="d-block">
+      
+      <h1><a href="/profile/<%=user._id  %>" class="ms-3"><%= post.author.username %></a>
+     </h1>
+      </div>
+   </div>
+   <h3 class="card-title ms-3"><%=post.title %> </h3>
+   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        
+         <% for(let i=0; i<post.media.length; i++) {%> 
+        <div class="carousel-item <%=i===0 ? 'active': '' %>">
+          <img src="<%=post.media[i].url%>" class="d-block w-100" alt="...">
+        </div>
+        <% } %> 
+        </div>
+        <% if(post.media.length>1) {%> 
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+         <span class="visually-hidden">Previous</span>
+       </button>
+       <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+         <span class="carousel-control-next-icon" aria-hidden="true"></span>
+         <span class="visually-hidden">Next</span>
+       </button>
+       <% } %> 
+        </div>
+        
+   <div class="card-body">
+   
+     <p class="card-text"><%=post.description  %> </p>
+     <p class="card-text"><small class="text-muted">Last updated <%=post.timeStamp %> </small></p>
+     <% if(currentUser && post.author.equals(currentUser._id)) {%> 
+     <!-- <a class="btn btn-outline-primary" href="/posts/<%=post._id%>/edit">Edit</a> -->
+     <a href="/posts/<%=post._id%>/edit"><img src="https://cdn-icons-png.flaticon.com/512/2356/2356780.png" width="30px" alt=""></a>
+     <form class="d-inline" action="/posts/<%=post._id  %>?_method=DELETE" method="post">
+     <button class="like ms-4">
+      <img src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png" width="30px" alt="">
+     </button>
+   </form>
+
+ 
+   </div>
+ <% } %> 
+ <div class="m-4 likediv">
+   <div>
+ <% if(!post.likedPost.includes(currentUser._id)) {%> 
+   <form action="/posts/<%=post._id%>/like" method="post"  >
+      <%=post.likes %>
+      <button class="like ms-2">
+   <img src="https://cdn-icons-png.flaticon.com/512/126/126473.png" width="20px" alt="">
+</button>
+</form>
+   <% } else{%> 
+
+          <form action="/posts/<%=post._id %>/unlike" method="post">
+            <%=post.likes %> 
+            <button class="like ms-2">
+               
+               <img src="https://cdn-icons-png.flaticon.com/512/880/880605.png" width="20px" alt="">
+            </button>
+         </form>
+      <% } %>  
+   </div>
+      <div class="ms-4">
+         <%= post.comments.length %> 
+         <img src="https://cdn-icons-png.flaticon.com/512/1380/1380338.png" class="ms-2 cbox" width="25px" alt="" onclick="cshow()">
+      </div>
+ </div>
+
+
+
+ <div class="container m-3" id="cbox-con">
+   
+   <form action="/posts/<%=post._id%>/comments" method="post">
+   
+      <label for="body">Add a comment:</label>
+      <textarea name="comment[body]" id="body" cols="50" rows="2"></textarea>
+      <div>
+         <button class="btn btn-primary mb-3">Submit</button>
+         </div>
+   
+   
+   </form>
+   </div>
+
+
+</div>
+
+
+</div>
+</div>
+<div class="comment-container">
+  
+<div  style="border-bottom: 2px solid black;">
+   <h4 >Comment Section:</h4>
+</div>
+
+        <% if(post.comments.length>0){ %> 
+         <% for(let comment of post.comments) {%>
+            <div class="card mb-3">
+
+              
+               <div class="card-body">
+                  <div class="d-flex" >
+                     <% if(comment.author.image.length>=1)  {%> 
+                  <img src="<%=comment.author.image[0].url%>" class="rounded-circle" width="40px" height="35px" alt="...">
+                 <% } else{%>
+                  <img src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" class="rounded-circle" width="40px" height="35px" alt="...">
+                  <% } %> 
+                  
+                  <div class="comment-content">
+                     
+                <h7 class="text-muted ms-3"><%= comment.author.username %> </h7>
+                </div>
+
+                <div class="dropdownc" tabindex="-1">
+                  <!-- <div class="three-dots" id="three-dots" onclick="drop()"></div> -->
+                  <div class="dropdown" id="dropdown">
+                     <% if(currentUser && (comment.author.equals(currentUser._id) || post.author.equals(currentUser._id))) {%> 
+                        <form action="/posts/<%=post._id%>/comments/<%=comment._id%>?_method=DELETE" method="post" >
+                          <button type="submit">Delete</button>
+                        </form>
+                        <% } %> 
+                   
+                     <button>Report</button>
+                   
+                  </div>
+               </div>
+               <% if( currentUser && (comment.author.equals(currentUser._id) || post.author.equals(currentUser._id))) {%> 
+               <form action="/posts/<%=post._id%>/comments/<%=comment._id%>?_method=DELETE" method="post" >
+                  <button type="submit" style="border: none; background-color: lightgrey;">
+                     <img src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png" class="ms-2 cbox" width="25px" alt="">
+                  </button>
+                </form>
+                <% } %> 
+            </div>
+            <h6 class="ms-5"><%= comment.body %></h6>
+            
+             </div>
+           
+             </div>
+            <% }} else {%> 
+               <h2 style="color: teal;">
+                  No comments yet!
+               </h2>
+<% } %> 
+
+      
+</div>
+</div>
+
+<script>
+   function drop(){
+//   console.log('clicked');
+  const dropdown = document.getElementById('dropdown');
+
+  dropdown.classList.toggle('dropvisible');
+
+   }
+
+   function cshow()
+   {
+      console.log('clicked')
+      const box = document.getElementById('cbox-con');
+      box.classList.toggle('cactive');
+   }
+</script>

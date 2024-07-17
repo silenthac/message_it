@@ -1,0 +1,36 @@
+<%- layout('layout/boilerplate')  %>
+<div class="login-body">
+
+
+<form action="/login" method="post">
+    <div class="login-container">
+        <h5>Login</h5>
+        <label class="form-label" for="username">Username</label>
+        <input class="form-control" type="text" id="username" name="username" autofocus required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Enter a Username.
+        </div>
+   
+
+    <div class="mb-3">
+        <label class="form-label" for="password">Password</label>
+        <input class="form-control" type="password" id="password" name="password" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Enter a Password.
+        </div>
+    </div>
+
+    <button class="logb">Login</button>
+    <p>Not a member? 
+        <a href="/register">Sign Up</a>
+    </p>
+</div>
+</form>
+
+</div>
